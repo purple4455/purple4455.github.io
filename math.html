@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>period 4]</title>
+    <title>period 4</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 20%;
+            margin-top: 20px;
         }
         .timer {
             font-size: 24px;
+            margin-bottom: 20px;
+        }
+        iframe {
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            border: none;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -22,6 +30,9 @@
         <p id="timeRemaining"></p>
         <p id="percentComplete"></p>
     </div>
+
+    <!-- Embed the 2048 game using an iframe -->
+    <iframe src="https://play2048.co/" title="2048 Game"></iframe>
 
     <script>
         const lunch = 1727287800000;
