@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lunch countdown and more</title>
+    <title>period 4</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,8 +15,9 @@
             margin-bottom: 20px;
         }
         iframe {
-            width: 300px;
-            height: 400px;
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
             border: none;
             margin-top: 20px;
         }
@@ -24,17 +25,17 @@
 </head>
 <body>
 
-    <h1>lunch countdown</h1>
+    <h1>period 4</h1>
     <div class="timer">
         <p id="timeRemaining"></p>
         <p id="percentComplete"></p>
     </div>
 
-    <!-- Adding 2048 game using iframe -->
+    <!-- Embed the 2048 game using an iframe -->
     <iframe src="https://play2048.co/" title="2048 Game"></iframe>
 
     <script>
-        const lunch = 1727191800000;
+        const lunch = 1727287800000;
         let timeGap;
 
         function updateTimer() {
