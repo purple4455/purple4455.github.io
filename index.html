@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lunch countdown and more</title>
+    <title>Universal Countdown</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,60 +14,67 @@
             font-size: 24px;
             margin-bottom: 20px;
         }
-        iframe {
-            width: 300px;
-            height: 400px;
-            border: none;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
 
-    <h1>lunch countdown</h1>
+    <h1>all periods Countdown</h1>
     <div class="timer">
         <p id="timeRemaining"></p>
         <p id="percentComplete"></p>
     </div>
 
-    <!-- Adding 2048 game using iframe -->
-    <iframe src="https://play2048.co/" title="2048 Game"></iframe>
-
     <script>
-        const lunch = 1727191800000;
-        let timeGap;
+        let p1NoChange = 1727791800000; 
+        let timeGap; 
+        let p1;
 
         function updateTimer() {
             const now = Date.now();
-            let lunchTime = lunch;
 
-            while (lunchTime < now) {
-                lunchTime += 86400000;
+            while ((now - p1NoChange) > 28800000) {
+                p1NoChange += 86400000; 
             }
 
-            timeGap = lunchTime - now;
-            const oldTime = now;
+            p1 = p1NoChange; 
 
-            function runTimer() {
+            while (p1 < now) {
+                p1 += 4800000; 
+            }
+
+            timeGap = p1 - now; 
+
+            runTimer();
+        }
+
+        function runTimer() {
+            const interval = setInterval(() => {
                 const currentTime = Date.now();
-                const remainingTime = lunchTime - currentTime;
-                const percentComplete = ((currentTime - oldTime) / timeGap) * 100; 
-                
-                const remainingSeconds = (remainingTime / 1000).toFixed(3);
+                const remainingTime = p1 - currentTime; 
 
-                document.getElementById('timeRemaining').innerHTML = `${remainingSeconds}`;
-                document.getElementById('percentComplete').innerHTML = `${percentComplete.toFixed(3)}%`;
+                let percentComplete = 0;
+                const last80Minutes = 4800000; 
+
+                if (remainingTime > last80Minutes) {
+                    percentComplete = ((currentTime - (p1 - timeGap)) / timeGap) * 100; 
+                } else if (remainingTime <= last80Minutes && remainingTime > 0) {
+
+                    const elapsedInLast80Minutes = (currentTime - (p1 - last80Minutes));
+                    percentComplete = Math.min(100, Math.max(0, (elapsedInLast80Minutes / last80Minutes) * 100));
+                }
+
+                const remainingSeconds = (remainingTime / 1000).toFixed(3);
+                document.getElementById('timeRemaining').innerHTML = `${remainingSeconds} seconds remaining`;
+                document.getElementById('percentComplete').innerHTML = `${percentComplete.toFixed(3)}% complete`;
 
                 if (remainingTime <= 0) {
                     document.getElementById('timeRemaining').innerHTML = "BANG";
                     clearInterval(interval);
                 }
-            }
-
-            const interval = setInterval(runTimer, 1);
+            }, 1); 
         }
 
-        updateTimer();
+        updateTimer(); 
     </script>
 
 </body>
