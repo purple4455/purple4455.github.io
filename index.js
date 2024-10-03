@@ -425,7 +425,7 @@
                 boxStyles.paddingLeft.length - 2));
 
             this.dimensions.WIDTH = this.outerContainerEl.offsetWidth - padding * 2;
-            this.dimensions.WIDTH = Math.min(DEFAULT_WIDTH, this.dimensions.WIDTH); //Arcade Mode
+            this.dimensions.WIDTH = Math.min(DEFAULT_WIDTH, this.dimensions.WIDTH);
             if (this.activated) {
                 this.setArcadeModeContainerScale();
             }
@@ -954,8 +954,9 @@
         } else if (devicePixelRatio == 1) {
             // Reset the canvas width / height. Fixes scaling bug when the page is
             // zoomed and the devicePixelRatio changes accordingly.
-            canvas.style.width = canvas.width + 'px';
-            canvas.style.height = canvas.height + 'px';
+
+        canvas.style.width = canvas.width + 'px';
+        canvas.style.height = canvas.height + 'px';
         }
         return false;
     };
