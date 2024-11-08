@@ -1850,7 +1850,7 @@
          */
         setSpeedDrop: function () {
             this.speedDrop = true;
-            this.jumpVelocity = 0;
+            this.jumpVelocity = 1;
         },
 
         /**
