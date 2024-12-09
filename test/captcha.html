@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>captcha</title>
+</head>
+<body>
+    <span style="font-size:48px">
+        Fill in the blanks:
+    </span>
+    <br>
+
+    <span style="font-size:16px">
+        "i ate a massive piece of explosive _________" - franz liszt, 1842
+    </span>
+    <br>
+    <input type="text" id="q1" name="q1"><br>
+    <span style="font-size:16px">
+        "anita max ___"
+    </span>
+    <br>
+    <input type="text" id="q2" name="q2"><br>
+    <span style="font-size:16px">
+        "你是内内个内内个内内内个内内_______________阳光彩虹小白马"
+    </span>
+    <br>
+    <input type="text" id="q3" name="q3"><br>
+    
+
+    <button style="width:60px;height:20px;font-size:12px" type="submit" onclick="return testsubmit();">submit</button>
+    <script>
+        var correct = 0;
+        function testsubmit() {
+            var displayTextq1 = document.querySelector('input[name="q1"]').value;
+            if (displayTextq1 === "diarrhea") {
+                correct++;
+            }
+
+            var displayTextq2 = document.querySelector('input[name="q2"]').value;
+            if (displayTextq2 === "wen") {
+                correct++;
+            }
+
+            var displayTextq3 = document.querySelector('input[name="q3"]').value;
+            if (displayTextq3 === "阳光彩虹小白马") {
+                correct++;
+            }
+
+            if (correct === 3) {
+                window.location.replace('/gay-test/tetriscaptcha.html');
+            } else {
+                alert("wrong");
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html>
