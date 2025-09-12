@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Winrate Calculator</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+  <h1>Upload your matches.txt</h1>
+  <input type="file" id="fileInput">
+  <button onclick="runPython()">Process</button>
+  <div id="output"></div>
+
+  <script type="text/javascript">
+    let pyodideReadyPromise = loadPyodide({indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/"});
+
+    async function runPython() {
+      let file = document.getElementById("fileInput").files[0];
+      if (!file) {
+        alert("Please choose a file first!");
+        return;
+      }
+
+      let text = await file.text();
+      let pyodide = await pyodideReadyPromise;
+
+      await pyodide.loadPackage(["pandas"]);
+
+      pyodide.FS.writeFile("matches.txt", text);
+
+      let code = `
+import pandas as pd
+
+df = pd.read_csv("matches.txt", sep=";")
+df["win"] = df["win"].astype(int)
+
+results = (
+    df.groupby("map")["win"]
+    .agg(["count", "sum"])
+    .rename(columns={"count": "Games", "sum": "Wins"})
+)
+results["Losses"] = results["Games"] - results["Wins"]
+results["Winrate %"] = (results["Wins"] / results["Games"] * 100).round(2)
+results = results.sort_values(by="Winrate %", ascending=False)
+
+results.to_html()
+`;
+
+      let result = pyodide.runPython(code);
+      document.getElementById("output").innerHTML = result;
+    }
+  </script>
+</body>
+</html>
